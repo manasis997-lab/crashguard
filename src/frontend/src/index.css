@@ -1,0 +1,197 @@
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque.woff2") format("woff2");
+  font-weight: 200 800;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/assets/fonts/Satoshi.woff2") format("woff2");
+  font-weight: 300 700;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0.1 0 0;
+    --foreground: 0.95 0.01 80;
+    --card: 0.13 0 0;
+    --card-foreground: 0.95 0.01 80;
+    --popover: 0.13 0 0;
+    --popover-foreground: 0.95 0.01 80;
+    --primary: 0.58 0.24 25;
+    --primary-foreground: 0.98 0 0;
+    --secondary: 0.16 0.01 270;
+    --secondary-foreground: 0.85 0.01 80;
+    --muted: 0.18 0.005 270;
+    --muted-foreground: 0.55 0.01 80;
+    --accent: 0.72 0.18 55;
+    --accent-foreground: 0.1 0 0;
+    --destructive: 0.58 0.24 25;
+    --destructive-foreground: 0.98 0 0;
+    --border: 0.2 0.01 270;
+    --input: 0.18 0.01 270;
+    --ring: 0.58 0.24 25;
+    --radius: 0.75rem;
+    --chart-1: 0.58 0.24 25;
+    --chart-2: 0.72 0.18 55;
+    --chart-3: 0.65 0.15 200;
+    --chart-4: 0.7 0.2 150;
+    --chart-5: 0.6 0.2 310;
+    --sidebar: 0.12 0 0;
+    --sidebar-foreground: 0.95 0.01 80;
+    --sidebar-primary: 0.58 0.24 25;
+    --sidebar-primary-foreground: 0.98 0 0;
+    --sidebar-accent: 0.18 0.005 270;
+    --sidebar-accent-foreground: 0.85 0.01 80;
+    --sidebar-border: 0.2 0.01 270;
+    --sidebar-ring: 0.58 0.24 25;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Satoshi", sans-serif;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.8;
+    }
+    70% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes countdown-pop {
+    0% {
+      transform: scale(1.4);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    10%,
+    50%,
+    90% {
+      transform: translateX(-4px);
+    }
+    30%,
+    70% {
+      transform: translateX(4px);
+    }
+  }
+
+  @keyframes glow-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 20px oklch(0.58 0.24 25 / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 40px oklch(0.58 0.24 25 / 0.7), 0 0 80px
+        oklch(0.58 0.24 25 / 0.3);
+    }
+  }
+
+  @keyframes equalizer {
+    0%,
+    100% {
+      transform: scaleY(0.2);
+    }
+    50% {
+      transform: scaleY(1);
+    }
+  }
+
+  .animate-pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .animate-countdown-pop {
+    animation: countdown-pop 0.25s ease-out forwards;
+  }
+
+  .animate-shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+
+  .animate-equalizer {
+    animation: equalizer 0.6s ease-in-out infinite;
+    transform-origin: bottom;
+  }
+
+  .glass-card {
+    background: oklch(0.13 0.005 270 / 0.8);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.25 0.01 270 / 0.5);
+  }
+
+  .app-container {
+    max-width: 430px;
+    margin: 0 auto;
+    min-height: 100dvh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .noise-bg::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+}
